@@ -29,6 +29,7 @@ export async function POST(req: Request) {
 
   const newRoom = await prisma.room.create({
     data: {
+      creatorId: userId,
       name: data.name,
       description: data.description,
       numberOfMembers: 1,

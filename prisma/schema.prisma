@@ -15,6 +15,7 @@ datasource db {
 
 model Room {
   id              String @id @default(cuid()) @unique
+  creatorId       String
   name            String
   description     String
   numberOfMembers Int
