@@ -1,9 +1,16 @@
 import { prisma } from "../../../lib/prisma";
+import { auth } from "@clerk/nextjs";
 
 export async function DELETE(
   req: Request,
   { params }: { params: { roomId: string } }
 ) {
+  const { userId } = auth();
+
+  if (!userId) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
   const data = await req.json();
   const { roomId } = params;
 

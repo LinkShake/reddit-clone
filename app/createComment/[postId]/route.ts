@@ -1,9 +1,15 @@
 import { prisma } from "../../../lib/prisma";
+import { auth } from "@clerk/nextjs";
 
 export async function POST(
   req: Request,
   { params }: { params: { postId: string } }
 ) {
+  const { userId } = auth();
+
+  if (!userId) {
+    return new Response("Unauthorized", { status: 401 });
+  }
   const data = await req.json();
   const { postId } = params;
 
@@ -22,7 +28,7 @@ export async function POST(
     data: {
       comments: {
         create: {
-          author: data.author,
+          authorId: data.author,
           textContent: data.textContent,
           ranking: 0,
         },

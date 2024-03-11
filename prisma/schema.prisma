@@ -18,13 +18,14 @@ model Room {
   name            String
   description     String
   numberOfMembers Int
+  membersId       String[]
   posts           Post[]
 }
 
 model Post {
   id          String    @id @default(cuid()) @unique
   textContent String
-  author      String
+  authorId      String
   ranking     Int
   room        Room      @relation(fields: [roomId], references: [id])
   roomId      String
@@ -34,7 +35,7 @@ model Post {
 model Comment {
   id          String @id @default(cuid()) @unique
   textContent String
-  author      String
+  authorId      String
   ranking     Int
   post        Post   @relation(fields: [postId], references: [id])
   postId      String
