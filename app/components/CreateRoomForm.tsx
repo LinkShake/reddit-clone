@@ -11,7 +11,6 @@ export const CreateRoomForm: React.FC<CreateRoomFormProps> = ({
   isCreateRoomFormOpen,
   setIsCreateRoomFormOpen,
 }) => {
-  console.log(isCreateRoomFormOpen);
   return (
     isCreateRoomFormOpen && (
       <form action={createRoom}>

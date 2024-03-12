@@ -21,8 +21,6 @@ export default async function Home() {
     },
   });
 
-  console.log(rooms);
-
   return (
     <main>
       {rooms?.map((room) => {

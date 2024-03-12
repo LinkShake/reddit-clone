@@ -1,5 +1,5 @@
-import { addPost } from "@/app/actions/action";
 import { AddPostForm } from "@/app/components/AddPostForm";
+import { Post } from "@/app/components/Post";
 import { prisma } from "@/lib/prisma";
 
 export default async function RoomPage({
@@ -23,14 +23,7 @@ export default async function RoomPage({
       <h2>{room?.description}</h2>
       <AddPostForm roomId={roomId} />
       {room?.posts?.map((post) => {
-        return (
-          <div key={post.id}>
-            <span>{post.textContent}</span>
-            <button>+</button>
-            <span>{post.ranking}</span>
-            <button>-</button>
-          </div>
-        );
+        return <Post key={post.id} {...{ ...post, postId: post.id }} />;
       })}
     </>
   );

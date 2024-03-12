@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { prisma } from "../../../lib/prisma";
 import { auth } from "@clerk/nextjs";
 
@@ -40,6 +41,8 @@ export async function DELETE(
       },
     },
   });
+
+  revalidatePath(`/room/${roomId}`);
 
   return Response.json({ updatedRoom });
 }

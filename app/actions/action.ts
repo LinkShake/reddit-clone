@@ -39,3 +39,31 @@ export const addPost = async (formData: FormData, roomId: string) => {
 
   revalidatePath(`/room/${roomId}`);
 };
+
+export const deletePost = async (roomId: string, postId: string) => {
+  const { userId } = auth();
+
+  const post = await prisma.post.findUnique({
+    where: {
+      roomId,
+      id: postId,
+    },
+  });
+
+  if (post?.authorId !== userId) {
+    console.log("we are here");
+    return;
+  }
+
+  await prisma.post.delete({
+    where: {
+      id: postId,
+      roomId,
+    },
+    include: {
+      comments: true,
+    },
+  });
+
+  revalidatePath(`/room/${roomId}`);
+};
