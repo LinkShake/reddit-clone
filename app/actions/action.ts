@@ -50,10 +50,7 @@ export const deletePost = async (roomId: string, postId: string) => {
     },
   });
 
-  if (post?.authorId !== userId) {
-    console.log("we are here");
-    return;
-  }
+  if (post?.authorId !== userId) return;
 
   await prisma.post.delete({
     where: {
@@ -62,6 +59,27 @@ export const deletePost = async (roomId: string, postId: string) => {
     },
     include: {
       comments: true,
+    },
+  });
+
+  revalidatePath(`/room/${roomId}`);
+};
+
+export const addComment = async (
+  formData: FormData,
+  postId: string,
+  roomId: string
+) => {
+  const commentContent = formData.get("commentContent");
+
+  const { userId } = auth();
+
+  await prisma.comment.create({
+    data: {
+      authorId: userId as string,
+      textContent: commentContent as string,
+      ranking: 0,
+      postId,
     },
   });
 

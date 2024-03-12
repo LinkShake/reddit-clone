@@ -13,7 +13,11 @@ export default async function RoomPage({
       id: roomId,
     },
     include: {
-      posts: true,
+      posts: {
+        include: {
+          comments: true,
+        },
+      },
     },
   });
 
