@@ -56,13 +56,16 @@ export const deletePost = async (roomId: string, postId: string) => {
 
   if (post?.authorId !== userId) return;
 
+  await prisma.comment.deleteMany({
+    where: {
+      postId,
+    },
+  });
+
   await prisma.post.delete({
     where: {
       id: postId,
       roomId,
-    },
-    include: {
-      comments: true,
     },
   });
 
