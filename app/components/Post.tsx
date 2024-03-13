@@ -33,35 +33,24 @@ export const Post: React.FC<PostProps> = async ({
   const user = await clerkClient.users.getUser(userId as string);
 
   return (
-    <div className="post-container">
-      <div className="post">
-        <div className="author-label">
-          <Avatar src={user.imageUrl} />
-          <h2>{user.username}</h2>
+    <div className="post-component">
+      <div className="author-label">
+        <Avatar src={user.imageUrl} />
+        <h2>{user.username}</h2>
+      </div>
+      <div className="post-container">
+        <div className="ranking">
+          <RankingController postId={postId} ranking={ranking} />
         </div>
         <div className="post-body">
           <span dangerouslySetInnerHTML={{ __html: textContent }}></span>
           {authorId === userId && (
-            <>
-              {/* <EditPostBtn /> */}
+            <div className="post-controls">
+              <EditPostBtn />
               <DeletePostBtn postId={postId} />
-            </>
+            </div>
           )}
-          <AddCommentForm postId={postId} />
-          {comments.map((comment) => {
-            return <div key={comment.id}>{comment.textContent}</div>;
-          })}
         </div>
-      </div>
-      <div
-        className="ranking"
-        style={
-          {
-            // border: "2px solid red",
-          }
-        }
-      >
-        <RankingController postId={postId} ranking={ranking} />
       </div>
       <br />
     </div>
