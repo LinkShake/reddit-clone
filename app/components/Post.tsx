@@ -1,5 +1,5 @@
-import { auth } from "@clerk/nextjs";
-import { Button } from "@mantine/core";
+import { auth, clerkClient } from "@clerk/nextjs";
+import { Avatar } from "@mantine/core";
 import { EditPostBtn } from "./EditPostBtn";
 import { DeletePostBtn } from "./DeletePostBtn";
 import { RankingController } from "./RankingController";
@@ -21,7 +21,7 @@ interface Comment {
   postId: string;
 }
 
-export const Post: React.FC<PostProps> = ({
+export const Post: React.FC<PostProps> = async ({
   authorId,
   ranking,
   textContent,
@@ -30,20 +30,40 @@ export const Post: React.FC<PostProps> = ({
 }) => {
   const { userId } = auth();
 
+  const user = await clerkClient.users.getUser(userId as string);
+
   return (
-    <>
-      <span dangerouslySetInnerHTML={{ __html: textContent }}></span>
-      <RankingController postId={postId} ranking={ranking} />
-      {authorId === userId && (
-        <>
-          <EditPostBtn />
-          <DeletePostBtn postId={postId} />
-        </>
-      )}
-      <AddCommentForm postId={postId} />
-      {comments.map((comment) => {
-        return <div key={comment.id}>{comment.textContent}</div>;
-      })}
-    </>
+    <div className="post-container">
+      <div className="post">
+        <div className="author-label">
+          <Avatar src={user.imageUrl} />
+          <h2>{user.username}</h2>
+        </div>
+        <div className="post-body">
+          <span dangerouslySetInnerHTML={{ __html: textContent }}></span>
+          {authorId === userId && (
+            <>
+              {/* <EditPostBtn /> */}
+              <DeletePostBtn postId={postId} />
+            </>
+          )}
+          <AddCommentForm postId={postId} />
+          {comments.map((comment) => {
+            return <div key={comment.id}>{comment.textContent}</div>;
+          })}
+        </div>
+      </div>
+      <div
+        className="ranking"
+        style={
+          {
+            // border: "2px solid red",
+          }
+        }
+      >
+        <RankingController postId={postId} ranking={ranking} />
+      </div>
+      <br />
+    </div>
   );
 };

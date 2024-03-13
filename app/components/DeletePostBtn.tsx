@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@mantine/core";
 import { usePathname } from "next/navigation";
 import { deletePost } from "../actions/action";
+import { IconTrash } from "@tabler/icons-react";
 
 export const DeletePostBtn = ({ postId }: { postId: string }) => {
   const pathname = usePathname();
@@ -13,8 +13,13 @@ export const DeletePostBtn = ({ postId }: { postId: string }) => {
       action={() => {
         deletePost(roomId, postId);
       }}
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+      }}
     >
-      <Button type="submit">Delete</Button>
+      <IconTrash color="gray" />
     </form>
   );
 };

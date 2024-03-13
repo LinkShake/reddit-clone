@@ -1,6 +1,5 @@
 import { AddPostForm } from "@/app/components/AddPostForm";
 import { Post } from "@/app/components/Post";
-import { PostEditor } from "@/app/components/PostEditor";
 import { prisma } from "@/lib/prisma";
 
 export default async function RoomPage({
@@ -24,12 +23,25 @@ export default async function RoomPage({
 
   return (
     <div>
-      <h1>{room?.name}</h1>
-      <h2>{room?.description}</h2>
+      <div className="room-header">
+        <h1>{room?.name}</h1>
+        <h2>{room?.description}</h2>
+      </div>
+      <br />
       <AddPostForm roomId={roomId} />
-      {room?.posts?.map((post) => {
-        return <Post key={post.id} {...{ ...post, postId: post.id }} />;
-      })}
+      <br />
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        {room?.posts?.map((post) => {
+          return <Post key={post.id} {...{ ...post, postId: post.id }} />;
+        })}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@mantine/core";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
@@ -15,8 +16,16 @@ export const RankingController = ({
   const roomId = pathname.slice(pathname.lastIndexOf("/") + 1);
 
   return (
-    <>
-      <button
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "50%",
+      }}
+    >
+      <Button
         onClick={async () => {
           setRankingState(rankingState + 1);
           await fetch(`/editPostRanking/${roomId}`, {
@@ -27,11 +36,16 @@ export const RankingController = ({
             }),
           });
         }}
+        // style={{
+        //   backgroundColor: "transparent",
+        //   color: "gray",
+        //   border: "none",
+        // }}
       >
         +
-      </button>
+      </Button>
       <span>{rankingState}</span>
-      <button
+      <Button
         onClick={async () => {
           setRankingState(rankingState - 1);
           await fetch(`/editPostRanking/${roomId}`, {
@@ -42,9 +56,14 @@ export const RankingController = ({
             }),
           });
         }}
+        // style={{
+        //   backgroundColor: "transparent",
+        //   color: "gray",
+        //   border: "none",
+        // }}
       >
         -
-      </button>
-    </>
+      </Button>
+    </div>
   );
 };

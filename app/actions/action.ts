@@ -20,6 +20,8 @@ export const createRoom = async (formData: FormData) => {
     },
   });
 
+  await prisma.$disconnect();
+
   revalidatePath("/");
 };
 
@@ -36,6 +38,8 @@ export const addPost = async (postContent: string, roomId: string) => {
       textContent: postContent as string,
     },
   });
+
+  await prisma.$disconnect();
 
   revalidatePath(`/room/${roomId}`);
 };
@@ -62,6 +66,8 @@ export const deletePost = async (roomId: string, postId: string) => {
     },
   });
 
+  await prisma.$disconnect();
+
   revalidatePath(`/room/${roomId}`);
 };
 
@@ -82,6 +88,8 @@ export const addComment = async (
       postId,
     },
   });
+
+  await prisma.$disconnect();
 
   revalidatePath(`/room/${roomId}`);
 };
