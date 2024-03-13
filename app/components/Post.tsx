@@ -32,7 +32,7 @@ export const Post: React.FC<PostProps> = ({
 
   return (
     <>
-      <span>{textContent}</span>
+      <span dangerouslySetInnerHTML={{ __html: textContent }}></span>
       <RankingController postId={postId} ranking={ranking} />
       {authorId === userId && (
         <>

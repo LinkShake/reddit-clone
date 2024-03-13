@@ -1,7 +1,10 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 
+import "./style.css";
+
 import "@mantine/core/styles.css";
+import "@mantine/tiptap/styles.css";
 
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 
@@ -22,7 +25,11 @@ export default function RootLayout({
           <ColorSchemeScript />
         </head>
         <body>
-          <MantineProvider>{children}</MantineProvider>
+          <div id="layout">
+            <div></div>
+            <MantineProvider>{children}</MantineProvider>
+            <div></div>
+          </div>
         </body>
       </html>
     </ClerkProvider>

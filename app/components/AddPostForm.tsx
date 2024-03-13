@@ -1,21 +1,22 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { addPost } from "../actions/action";
+import { PostEditor } from "./PostEditor";
 
 export const AddPostForm = ({ roomId }: { roomId: string }) => {
   const formRef = useRef<HTMLFormElement>(null);
+  const [postContent, setPostContent] = useState("");
   return (
     <form
       ref={formRef}
-      action={(formData) => {
-        addPost(formData, roomId);
+      action={() => {
+        // console.log(postContent);
+        addPost(postContent, roomId);
         formRef.current?.reset();
       }}
     >
-      <label htmlFor="postContent"></label>
-      <input type="text" id="postContent" name="postContent" />
-      <button type="submit">Post</button>
+      <PostEditor setPostContent={setPostContent} postContent={postContent} />
     </form>
   );
 };

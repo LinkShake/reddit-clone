@@ -23,8 +23,8 @@ export const createRoom = async (formData: FormData) => {
   revalidatePath("/");
 };
 
-export const addPost = async (formData: FormData, roomId: string) => {
-  const postContent = formData.get("postContent");
+export const addPost = async (postContent: string, roomId: string) => {
+  // const postContent = formData.get("postContent");
 
   const { userId } = auth();
 
