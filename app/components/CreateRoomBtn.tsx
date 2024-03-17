@@ -16,6 +16,11 @@ export const CreateRoomBtn: React.FC<CreateRoomBtnProps> = ({
       onClick={() => {
         setIsCreateRoomFormOpen(true);
       }}
+      style={{
+        position: "absolute",
+        bottom: "20px",
+        right: "20px",
+      }}
     >
       Create room
     </Button>

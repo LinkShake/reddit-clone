@@ -16,6 +16,62 @@
   }
 }
 
+.searchroombar {
+  width: 100%;
+  margin: 20px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 10px;
+  border: none;
+  box-shadow: 0px 10px 20px -3px rgba(0, 0, 0, 0.1);
+}
+
+.create-room-modal {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 45rem;
+  width: 45rem;
+  background-color: white;
+  border-radius: 9px;
+  max-height: 80vh;
+  gap: 20px;
+  overflow: auto;
+
+  padding: 5rem 6rem;
+  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  transition: all 0.5s;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.5s;
+}
+
+.user-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  /* gap: 10px; */
+  background-color: #1d4ed8;
+}
+
+.user-area {
+  display: flex;
+  gap: 10px;
+}
+
 .room-header {
   transform: translateY(10px);
   border-radius: 20px;
@@ -28,7 +84,8 @@
   grid-template-columns: 1fr 10fr;
 }
 
-.post-component {
+.post-component,
+.room-preview {
   width: 100%;
   box-shadow: 0px 10px 20px -3px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -39,6 +96,34 @@
   .post-component {
     width: 80%;
   }
+}
+
+.home-link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}
+
+.room-preview {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.room-preview:hover {
+  opacity: 0.85;
+  text-decoration: underline;
+  scale: 1.01;
+}
+
+.room-link {
+  text-decoration: none;
+  transition: 0.2s;
 }
 
 .ranking {

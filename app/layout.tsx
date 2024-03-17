@@ -7,6 +7,7 @@ import "@mantine/core/styles.css";
 import "@mantine/tiptap/styles.css";
 
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { UserNavbar } from "./components/UserNavbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,11 +26,14 @@ export default function RootLayout({
           <ColorSchemeScript />
         </head>
         <body>
-          <div id="layout">
-            <div></div>
-            <MantineProvider>{children}</MantineProvider>
-            <div></div>
-          </div>
+          <MantineProvider>
+            <UserNavbar />
+            <div id="layout">
+              <div></div>
+              {children}
+              <div></div>
+            </div>
+          </MantineProvider>
         </body>
       </html>
     </ClerkProvider>

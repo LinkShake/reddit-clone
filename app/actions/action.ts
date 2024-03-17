@@ -92,6 +92,25 @@ export const editPost = async (
     },
   });
 
+  await prisma.$disconnect();
+
+  revalidatePath(`/room/${roomId}`);
+};
+
+export const joinRoom = async (roomId: string, userId: string) => {
+  await prisma.room.update({
+    where: {
+      id: roomId,
+    },
+    data: {
+      membersId: {
+        push: userId,
+      },
+    },
+  });
+
+  await prisma.$disconnect();
+
   revalidatePath(`/room/${roomId}`);
 };
 

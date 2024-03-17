@@ -30,6 +30,7 @@ model Post {
   ranking     Int
   room        Room      @relation(fields: [roomId], references: [id])
   roomId      String
+  createdAt   DateTime @default(now())
   comments    Comment[]
 }
 
