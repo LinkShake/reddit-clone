@@ -3,13 +3,14 @@ import { Avatar } from "@mantine/core";
 import { EditPostBtn } from "./EditPostBtn";
 import { DeletePostBtn } from "./DeletePostBtn";
 import { RankingController } from "./RankingController";
-import { AddCommentForm } from "./AddCommentForm";
+import { PostClient } from "./PostClient";
 
 interface PostProps {
   authorId: string;
   textContent: string;
   ranking: number;
   postId: string;
+  roomId: string;
   comments: Comment[];
 }
 
@@ -21,38 +22,19 @@ interface Comment {
   postId: string;
 }
 
-export const Post: React.FC<PostProps> = async ({
-  authorId,
-  ranking,
-  textContent,
-  postId,
-  comments,
-}) => {
+export const Post: React.FC<PostProps> = async (props) => {
   const { userId } = auth();
 
-  const user = await clerkClient.users.getUser(userId as string);
+  const user = await clerkClient.users.getUser(props.authorId as string);
 
   return (
-    <div className="post-component">
-      <div className="author-label">
-        <Avatar src={user.imageUrl} />
-        <h2>{user.username}</h2>
-      </div>
-      <div className="post-container">
-        <div className="ranking">
-          <RankingController postId={postId} ranking={ranking} />
-        </div>
-        <div className="post-body">
-          <span dangerouslySetInnerHTML={{ __html: textContent }}></span>
-          {authorId === userId && (
-            <div className="post-controls">
-              <EditPostBtn />
-              <DeletePostBtn postId={postId} />
-            </div>
-          )}
-        </div>
-      </div>
-      <br />
-    </div>
+    <PostClient
+      {...{
+        ...props,
+        userProfileImg: user.imageUrl as string,
+        username: user.username as string,
+        userId: userId as string,
+      }}
+    />
   );
 };

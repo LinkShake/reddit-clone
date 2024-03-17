@@ -74,6 +74,27 @@ export const deletePost = async (roomId: string, postId: string) => {
   revalidatePath(`/room/${roomId}`);
 };
 
+export const editPost = async (
+  postId: string,
+  roomId: string,
+  newContent: string
+) => {
+  const { userId } = auth();
+
+  await prisma.post.update({
+    where: {
+      id: postId,
+      roomId,
+      authorId: userId as string,
+    },
+    data: {
+      textContent: newContent,
+    },
+  });
+
+  revalidatePath(`/room/${roomId}`);
+};
+
 export const addComment = async (
   formData: FormData,
   postId: string,

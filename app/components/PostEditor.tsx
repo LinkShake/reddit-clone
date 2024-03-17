@@ -15,9 +15,11 @@ const content = "";
 export function PostEditor({
   setPostContent,
   postContent,
+  variant = "post",
 }: {
   setPostContent: React.Dispatch<React.SetStateAction<string>>;
   postContent: string;
+  variant: "edit" | "post";
 }) {
   const editor = useEditor({
     extensions: [
@@ -29,9 +31,14 @@ export function PostEditor({
       Highlight,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
-    content,
+    content: postContent || content,
     onUpdate(props) {
       const content = props.editor.getHTML();
+      console.log(
+        parser.parseFromString(content, "text/html").documentElement.textContent
+          ?.length
+      );
+
       setPostContent(content);
     },
   });
@@ -93,17 +100,19 @@ export function PostEditor({
           justifyContent: "flex-end",
         }}
       >
-        <RichTextEditor.ControlsGroup>
-          <Button
-            disabled={
-              parser.parseFromString(postContent, "text/html").documentElement
-                .textContent === ""
-            }
-            type="submit"
-          >
-            Post
-          </Button>
-        </RichTextEditor.ControlsGroup>
+        {variant === "post" && (
+          <RichTextEditor.ControlsGroup>
+            <Button
+              disabled={
+                parser.parseFromString(postContent, "text/html").documentElement
+                  .textContent === ""
+              }
+              type="submit"
+            >
+              Post
+            </Button>
+          </RichTextEditor.ControlsGroup>
+        )}
       </RichTextEditor.Toolbar>
     </RichTextEditor>
   );
