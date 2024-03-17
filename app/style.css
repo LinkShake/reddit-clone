@@ -17,7 +17,10 @@
 }
 
 .room-header {
+  transform: translateY(10px);
+  border-radius: 20px;
   padding: 20px;
+  background-image: linear-gradient(to bottom right, #7dd3fc, #1d4ed8);
 }
 
 .post-container {

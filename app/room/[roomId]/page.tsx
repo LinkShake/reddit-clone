@@ -25,7 +25,7 @@ export default async function RoomPage({
     <div>
       <div className="room-header">
         <h1>{room?.name}</h1>
-        <h2>{room?.description}</h2>
+        <h3>{room?.description}</h3>
       </div>
       <br />
       <AddPostForm roomId={roomId} />
