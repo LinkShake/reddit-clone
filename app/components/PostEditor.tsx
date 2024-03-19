@@ -34,11 +34,6 @@ export function PostEditor({
     content: postContent || content,
     onUpdate(props) {
       const content = props.editor.getHTML();
-      console.log(
-        parser.parseFromString(content, "text/html").documentElement.textContent
-          ?.length
-      );
-
       setPostContent(content);
     },
   });

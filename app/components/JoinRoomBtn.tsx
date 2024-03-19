@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@mantine/core";
-import { joinRoom } from "../actions/action";
+import { joinRoom, unjoinRoom } from "../actions/action";
 
 interface JoinRoomBtnProps {
   userId: string;
@@ -17,7 +17,9 @@ export const JoinRoomBtn: React.FC<JoinRoomBtnProps> = ({
   roomId,
 }) => {
   return creatorId === userId || membersIdx.includes(userId) ? (
-    <Button disabled>Joined</Button>
+    <form action={() => unjoinRoom(roomId, userId)}>
+      <Button type="submit">Unjoin</Button>
+    </form>
   ) : (
     <form action={() => joinRoom(roomId, userId)}>
       <Button type="submit">Join</Button>

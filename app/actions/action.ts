@@ -3,6 +3,7 @@
 import { auth } from "@clerk/nextjs";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export const createRoom = async (formData: FormData) => {
   const roomName = formData.get("roomName");
@@ -112,6 +113,45 @@ export const joinRoom = async (roomId: string, userId: string) => {
   await prisma.$disconnect();
 
   revalidatePath(`/room/${roomId}`);
+};
+
+export const unjoinRoom = async (roomId: string, userId: string) => {
+  const room = await prisma.room.findUnique({
+    where: {
+      id: roomId,
+    },
+  });
+
+  await prisma.room.update({
+    where: {
+      id: roomId,
+    },
+    data: {
+      membersId: {
+        set: room?.membersId.filter((id) => id !== userId),
+      },
+    },
+  });
+
+  await prisma.$disconnect();
+
+  revalidatePath(`/room/${roomId}`);
+};
+
+export const deleteRoom = async (roomId: string) => {
+  await prisma.post.deleteMany({
+    where: {
+      roomId,
+    },
+  });
+
+  await prisma.room.delete({
+    where: {
+      id: roomId,
+    },
+  });
+
+  redirect("/");
 };
 
 export const addComment = async (

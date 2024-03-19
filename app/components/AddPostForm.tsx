@@ -11,7 +11,6 @@ export const AddPostForm = ({ roomId }: { roomId: string }) => {
     <form
       ref={formRef}
       action={() => {
-        // console.log(postContent);
         addPost(postContent, roomId);
         formRef.current?.reset();
       }}
