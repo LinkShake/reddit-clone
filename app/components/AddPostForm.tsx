@@ -15,7 +15,11 @@ export const AddPostForm = ({ roomId }: { roomId: string }) => {
         formRef.current?.reset();
       }}
     >
-      <PostEditor setPostContent={setPostContent} postContent={postContent} />
+      <PostEditor
+        setPostContent={setPostContent}
+        postContent={postContent}
+        variant="post"
+      />
     </form>
   );
 };
