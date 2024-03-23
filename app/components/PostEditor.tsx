@@ -31,7 +31,7 @@ export function PostEditor({
       Highlight,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
-    content: postContent || content,
+    content: postContent,
     onUpdate(props) {
       const content = props.editor.getHTML();
       setPostContent(content);

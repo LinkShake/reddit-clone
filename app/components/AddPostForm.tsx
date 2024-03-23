@@ -13,6 +13,7 @@ export const AddPostForm = ({ roomId }: { roomId: string }) => {
       action={() => {
         addPost(postContent, roomId);
         formRef.current?.reset();
+        setPostContent("");
       }}
     >
       <PostEditor
