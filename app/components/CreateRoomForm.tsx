@@ -3,16 +3,32 @@
 import { useEffect } from "react";
 import { createRoom } from "../actions/action";
 import { Button } from "@mantine/core";
+import { useRouter } from "next/navigation";
 
 interface CreateRoomFormProps {
   isCreateRoomFormOpen: boolean;
   setIsCreateRoomFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  roomsState: Room[];
+  setRoomsState: React.Dispatch<React.SetStateAction<Room[]>>;
+}
+
+interface Room {
+  id: string;
+  creatorId: string;
+  name: string;
+  description: string;
+  numberOfMembers: number;
+  membersId: string[];
 }
 
 export const CreateRoomForm: React.FC<CreateRoomFormProps> = ({
   isCreateRoomFormOpen,
   setIsCreateRoomFormOpen,
+  roomsState,
+  setRoomsState,
 }) => {
+  const router = useRouter();
+
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") setIsCreateRoomFormOpen(false);
@@ -28,7 +44,14 @@ export const CreateRoomForm: React.FC<CreateRoomFormProps> = ({
             setIsCreateRoomFormOpen(false);
           }}
         ></div>
-        <form action={createRoom} className="create-room-modal">
+        <form
+          action={async (formData) => {
+            const data = await createRoom(formData);
+            setIsCreateRoomFormOpen(false);
+            setRoomsState([...roomsState, { ...data }]);
+          }}
+          className="create-room-modal"
+        >
           <div
             style={{
               display: "flex",

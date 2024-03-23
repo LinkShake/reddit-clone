@@ -1,9 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs";
 import { HomePageClientWrapper } from "./components/HomePageClientWrapper";
-import Link from "next/link";
-import { SearchRoomBar } from "./components/SearchRoomBar";
 import { RoomsClient } from "./components/RoomsClient";
+import { HomeClient } from "./components/Home";
 
 export default async function Home() {
   const { userId } = auth();
@@ -25,8 +24,7 @@ export default async function Home() {
 
   return (
     <main>
-      <RoomsClient {...{ rooms }} />
-      <HomePageClientWrapper />
+      <HomeClient {...{ rooms }} />
     </main>
   );
 }

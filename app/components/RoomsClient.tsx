@@ -6,6 +6,8 @@ import { SearchRoomBar } from "./SearchRoomBar";
 
 interface RoomsClientProps {
   rooms: Room[];
+  roomsState: Room[];
+  setRoomsState: React.Dispatch<React.SetStateAction<Room[]>>;
 }
 
 interface Room {
@@ -17,9 +19,11 @@ interface Room {
   membersId: string[];
 }
 
-export const RoomsClient: React.FC<RoomsClientProps> = ({ rooms }) => {
-  const [roomsState, setRoomsState] = useState(rooms);
-
+export const RoomsClient: React.FC<RoomsClientProps> = ({
+  rooms,
+  roomsState,
+  setRoomsState,
+}) => {
   return (
     <>
       <SearchRoomBar setRoomsState={setRoomsState} originalRooms={rooms} />

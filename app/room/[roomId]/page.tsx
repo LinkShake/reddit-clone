@@ -3,7 +3,7 @@ import { JoinRoomBtn } from "@/app/components/JoinRoomBtn";
 import { Post } from "@/app/components/Post";
 import { RoomClient } from "@/app/components/RoomClient";
 import { prisma } from "@/lib/prisma";
-import { auth } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs";
 
 export default async function RoomPage({
   params,
@@ -11,6 +11,8 @@ export default async function RoomPage({
   params: { roomId: string };
 }) {
   const { userId } = auth();
+
+  const user = await currentUser();
 
   const { roomId } = params;
   const room = await prisma.room.findUnique({
@@ -31,7 +33,13 @@ export default async function RoomPage({
 
   return (
     <RoomClient
-      {...{ room, userId: userId as string, roomId: roomId as string }}
+      {...{
+        room,
+        userId: userId as string,
+        roomId: roomId as string,
+        imageUrl: user?.imageUrl as string,
+        username: user?.username as string,
+      }}
     />
   );
 }

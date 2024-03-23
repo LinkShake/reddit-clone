@@ -11,7 +11,7 @@ export const createRoom = async (formData: FormData) => {
 
   const { userId } = auth();
 
-  await prisma.room.create({
+  const newRoom = await prisma.room.create({
     data: {
       creatorId: userId as string,
       name: roomName as string,
@@ -24,11 +24,11 @@ export const createRoom = async (formData: FormData) => {
   await prisma.$disconnect();
 
   revalidatePath("/");
+
+  return newRoom;
 };
 
 export const addPost = async (postContent: string, roomId: string) => {
-  // const postContent = formData.get("postContent");
-
   const { userId } = auth();
 
   await prisma.post.create({

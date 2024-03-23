@@ -1,7 +1,5 @@
 "use client";
 
-import { IconSearch } from "@tabler/icons-react";
-
 interface Room {
   id: string;
   creatorId: string;
@@ -19,7 +17,7 @@ export const SearchRoomBar = ({
   originalRooms: Room[];
 }) => {
   return (
-    <form action="">
+    <form onSubmit={(e) => e.preventDefault()}>
       <input
         type="text"
         className="searchroombar"

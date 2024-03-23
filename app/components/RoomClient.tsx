@@ -12,10 +12,14 @@ export const RoomClient = ({
   userId,
   room,
   roomId,
+  imageUrl,
+  username,
 }: {
   userId: string;
   room: any;
   roomId: string;
+  imageUrl: string;
+  username: string;
 }) => {
   const [isDeleteRoomModalOpen, setIsDeleteRoomModalOpen] = useState(false);
   const deleteRoomModalContext = useContext(DeleteRoomModalContext);
@@ -65,7 +69,18 @@ export const RoomClient = ({
           {room?.posts?.length ? (
             <>
               {room?.posts?.map((post: any) => {
-                return <Post key={post.id} {...{ ...post, postId: post.id }} />;
+                return (
+                  <Post
+                    key={post.id}
+                    {...{
+                      ...post,
+                      postId: post.id,
+                      imageUrl,
+                      username,
+                      userId,
+                    }}
+                  />
+                );
               })}
             </>
           ) : (
